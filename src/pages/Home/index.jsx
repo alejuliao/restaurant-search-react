@@ -5,7 +5,7 @@ import TextField, { Input } from '@material/react-text-field';
 
 import { Container, Search, Logo, Wrapper, Map,CarouselTitle, Carousel } from './styles';
 import fakeImg from '../../assets/restaurante-fake.png';
-import {Card} from '../../components'
+import {Card, RestaurantCard} from '../../components'
 import logo from '../../assets/logo.svg';
 import MaterialIcon from '@material/react-material-icon';
 
@@ -39,7 +39,6 @@ const Home = () => {
           </TextField>
           <CarouselTitle>Sua Área</CarouselTitle>
           <Carousel {...settings}>
-
               <Card photo={fakeImg} title='nome do restaurante'/>
               <Card photo={fakeImg} title='nome do restaurante'/>
               <Card photo={fakeImg} title='nome do restaurante'/>
@@ -47,9 +46,11 @@ const Home = () => {
               <Card photo={fakeImg} title='nome do restaurante'/>
               <Card photo={fakeImg} title='nome do restaurante'/>
               <Card photo={fakeImg} title='nome do restaurante'/>
-
             </Carousel>
         </Search>
+        <RestaurantCard/>
+        <RestaurantCard/>
+        <RestaurantCard/>
       </Container>
       <Map/>
     </Wrapper>
