@@ -10,7 +10,6 @@ const theme = {
   fonst: {
     regular: 'Roboto, sans-serif',
   },
-
 }
 
 export default theme;
