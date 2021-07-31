@@ -33,6 +33,7 @@ export const Address = styled.h1`
 `;
 
 export const RestaurantPhoto = styled.img`
+  display: ${(props) => (props.imageLoaded ? 'block' : 'none')}
   width: 80px;
   height: 80px;
   object-fit: cover;

@@ -3,19 +3,18 @@ import React, { useState } from 'react';
 
 import TextField, { Input } from '@material/react-text-field';
 
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Container, Search, Logo, Wrapper, CarouselTitle, Carousel, ModalTitle, ModalContent } from './styles';
 import fakeImg from '../../assets/restaurante-fake.png';
-import {Card, RestaurantCard, Modal,Map} from '../../components';
+import { Card, RestaurantCard, Modal, Map, Loader, Skeleton } from '../../components';
 import logo from '../../assets/logo.svg';
 import MaterialIcon from '@material/react-material-icon';
-
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const [modalOpened, setModalOpened] = useState(false);
-  const [placeId, setPlaceId] = useState('');
-  const [query, setQuery] = useState('');
+  const [placeId, setPlaceId] = useState(null);
+  const [query, setQuery] = useState(null);
   const { restaurants, restaurantSelected } = useSelector((state) => state.restaurants);
 
   const settings = {
@@ -54,16 +53,23 @@ const Home = () => {
               onKeyPress={handleKeyPress}
               onChange={(e) => setInputValue(e.target.value)} />
           </TextField>
-          <CarouselTitle>Sua Área</CarouselTitle>
-          <Carousel {...settings}>
-            {restaurants.map((restaurant) => (
-              <Card
-                key={restaurant.place_id}
-                photo={restaurant.photos ? restaurant.photos[0].getUrl() : fakeImg}
-                title={restaurant.name}
-              />
-            ))}
-            </Carousel>
+          {restaurants.length > 0 ? (
+            <>
+              <CarouselTitle>Sua Área</CarouselTitle>
+              <Carousel {...settings}>
+                {restaurants.map((restaurant) => (
+                  <Card
+                    key={restaurant.place_id}
+                    photo={restaurant.photos ? restaurant.photos[0].getUrl() : fakeImg}
+                    title={restaurant.name}
+                  />
+                ))}
+                </Carousel>
+              </>
+          )
+          : (
+          <Loader/>
+          )}
             {/* <button onClick={() =>setModalOpened(true)}>Abrir Modal</button> */}
         </Search>
         {restaurants.map((restaurant) => (
@@ -73,10 +79,26 @@ const Home = () => {
       </Container>
       <Map query={query} placeId={placeId}/>
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
-        <ModalTitle>{restaurantSelected?.name}</ModalTitle>
-        <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
-        <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
-        <ModalContent>{restaurantSelected?.opening_hours?.isOpen ? 'Aberto Agora' : 'Fechado Agora'}</ModalContent>
+          {restaurantSelected ? (
+            <>
+              <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+              <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
+              <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+              <ModalContent>
+                {restaurantSelected?.opening_hours?.isOpen
+                  ? 'Aberto Agora'
+                  : 'Fechado Agora'}
+              </ModalContent>
+            </>
+          ) : (
+            <>
+              <Skeleton width="10px" height="10px"/>
+              <Skeleton width="10px" height="10px"/>
+              <Skeleton width="10px" height="10px"/>
+              <Skeleton width="10px" height="10px"/>
+            </>
+          )
+          }
       </Modal>
     </Wrapper>
   )
