@@ -24,7 +24,7 @@ export const Logo = styled.img`
     margin: 15px;
   `
 export const Map = styled.div`
-background: tomato;
+/* background: ; */
 width: 100vw;
 `
 

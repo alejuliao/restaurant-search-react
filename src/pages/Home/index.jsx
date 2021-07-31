@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 import TextField, { Input } from '@material/react-text-field';
 
-
-import { Container, Search, Logo, Wrapper, Map,CarouselTitle, Carousel } from './styles';
+import { Container, Search, Logo, Wrapper, CarouselTitle, Carousel } from './styles';
 import fakeImg from '../../assets/restaurante-fake.png';
-import {Card, RestaurantCard, Modal} from '../../components'
+import {Card, RestaurantCard, Modal,Map} from '../../components';
 import logo from '../../assets/logo.svg';
 import MaterialIcon from '@material/react-material-icon';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
-  const [modalOpened, setModalOpened] = useState(false);
+  const [modalOpened, setModalOpened] = useState(true);
+  const [query, setQuery] = useState('');
 
   const settings = {
     dots: false,
@@ -22,6 +22,11 @@ const Home = () => {
     adaptiveHeight: true,
     autoPlay: true,
   };
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      setQuery(inputValue);
+    }
+  }
   return (
     <Wrapper>
       <Container>
@@ -30,12 +35,11 @@ const Home = () => {
           <TextField
             label='Pesquisar'
             outlined
-          // helperText={<HelperText>Help Me!</HelperText>}
-          // onTrailingIconSelect={() => this.setState({value: ''})}
-          trailingIcon={<MaterialIcon role="button" icon="search"/>}
+            trailingIcon={<MaterialIcon role="button" icon="search"/>}
           >
             <Input
               value={inputValue}
+              onKeyPress={handleKeyPress}
               onChange={(e) => setInputValue(e.target.value)} />
           </TextField>
           <CarouselTitle>Sua Área</CarouselTitle>
@@ -48,14 +52,14 @@ const Home = () => {
               <Card photo={fakeImg} title='nome do restaurante'/>
               <Card photo={fakeImg} title='nome do restaurante'/>
             </Carousel>
-            <button onClick={() =>setModalOpened(true)}>Abrir Modal</button>
+            {/* <button onClick={() =>setModalOpened(true)}>Abrir Modal</button> */}
         </Search>
         <RestaurantCard/>
         <RestaurantCard/>
         <RestaurantCard/>
       </Container>
-      <Map/>
-      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}/>
+      <Map query={query}/>
+      {/* <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}/> */}
     </Wrapper>
   )
 }
