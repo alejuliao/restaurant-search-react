@@ -5,12 +5,13 @@ import TextField, { Input } from '@material/react-text-field';
 
 import { Container, Search, Logo, Wrapper, Map,CarouselTitle, Carousel } from './styles';
 import fakeImg from '../../assets/restaurante-fake.png';
-import {Card, RestaurantCard} from '../../components'
+import {Card, RestaurantCard, Modal} from '../../components'
 import logo from '../../assets/logo.svg';
 import MaterialIcon from '@material/react-material-icon';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
+  const [modalOpened, setModalOpened] = useState(false);
 
   const settings = {
     dots: false,
@@ -47,12 +48,14 @@ const Home = () => {
               <Card photo={fakeImg} title='nome do restaurante'/>
               <Card photo={fakeImg} title='nome do restaurante'/>
             </Carousel>
+            <button onClick={() =>setModalOpened(true)}>Abrir Modal</button>
         </Search>
         <RestaurantCard/>
         <RestaurantCard/>
         <RestaurantCard/>
       </Container>
       <Map/>
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}/>
     </Wrapper>
   )
 }

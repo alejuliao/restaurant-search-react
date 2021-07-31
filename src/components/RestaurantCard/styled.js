@@ -37,4 +37,4 @@ export const RestaurantPhoto = styled.img`
   height: 80px;
   object-fit: cover;
   border-radius: 6px;
-`
+`;
