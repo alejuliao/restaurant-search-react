@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 import React, { useState } from 'react';
 
 import TextField, { Input } from '@material/react-text-field';
 
 import {useSelector} from 'react-redux'
-import { Container, Search, Logo, Wrapper, CarouselTitle, Carousel } from './styles';
+import { Container, Search, Logo, Wrapper, CarouselTitle, Carousel, ModalTitle, ModalContent } from './styles';
 import fakeImg from '../../assets/restaurante-fake.png';
 import {Card, RestaurantCard, Modal,Map} from '../../components';
 import logo from '../../assets/logo.svg';
@@ -12,24 +13,32 @@ import MaterialIcon from '@material/react-material-icon';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
-  const [modalOpened, setModalOpened] = useState(true);
+  const [modalOpened, setModalOpened] = useState(false);
+  const [placeId, setPlaceId] = useState('');
   const [query, setQuery] = useState('');
-  const { restaurants } = useSelector((state) => state.restaurants);
+  const { restaurants, restaurantSelected } = useSelector((state) => state.restaurants);
 
   const settings = {
     dots: false,
     infinite: true,
-    speed: 300,
+    autoPlay: true,
+    autoplaySpeed: 2000,
     slidesToShow: 4,
     slidesToScroll: 4,
     adaptiveHeight: true,
-    autoPlay: true,
   };
   function handleKeyPress(e) {
     if (e.key === 'Enter') {
       setQuery(inputValue);
     }
   }
+
+  function handleOpenModal(placeId){
+    setPlaceId(placeId);
+    setModalOpened(true);
+  }
+
+
   return (
     <Wrapper>
       <Container>
@@ -58,12 +67,17 @@ const Home = () => {
             {/* <button onClick={() =>setModalOpened(true)}>Abrir Modal</button> */}
         </Search>
         {restaurants.map((restaurant) => (
-          <RestaurantCard restaurant={restaurant}/>
+          <RestaurantCard onClick={()=> handleOpenModal(restaurant.place_id)} restaurant={restaurant}/>
         ))}
 
       </Container>
-      <Map query={query}/>
-      {/* <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}/> */}
+      <Map query={query} placeId={placeId}/>
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
+        <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+        <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
+        <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+        <ModalContent>{restaurantSelected?.opening_hours?.isOpen ? 'Aberto Agora' : 'Fechado Agora'}</ModalContent>
+      </Modal>
     </Wrapper>
   )
 }

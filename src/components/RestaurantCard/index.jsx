@@ -2,8 +2,8 @@ import React from 'react';
 import {RestaurantCardStyle,RestaurantInfo, Title,Address, RestaurantPhoto} from './styled'
 import ReactStars from "react-rating-stars-component";
 import fakeimg from '../../assets/restaurante-fake.png';
-const RestaurantCard = ({restaurant}) =>(
-  <RestaurantCardStyle>
+const RestaurantCard = ({restaurant, onClick}) =>(
+  <RestaurantCardStyle onClick={onClick}>
     <RestaurantInfo>
       <Title>{restaurant.name}</Title>
       <ReactStars count={5} isHalf value={restaurant.rating} edit={false} activeColor="orange"/>
