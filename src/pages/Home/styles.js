@@ -7,7 +7,7 @@ flex-direction: row;
 `
 export const Container = styled.div`
   background: ${(props) => props.theme.colors.background};
-  width: 35vw;
+  width: 320px;
   height: 100vh;
   overflow-y: auto;
 `
