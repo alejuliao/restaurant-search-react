@@ -9,7 +9,7 @@ export const Card = styled.div`
   border-radius: 20px;
   background-image: url(${(props) => props.photo});
   background-size: cover;
-  `
+`;
 export const Title = styled.h1`
-    color:#fff;
-  `
+  color: #fff;
+`;

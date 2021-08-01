@@ -1,12 +1,12 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Skeleton } from '../index';
 
 import { Card, Title } from './styled';
 
-const ImageCard =({photo, title})=>{
+const ImageCard = ({ photo, title }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     const imageLoader = new Image();
     imageLoader.src = photo;
     imageLoader.onload = () => setImageLoaded(true);
@@ -14,14 +14,15 @@ const ImageCard =({photo, title})=>{
 
   return (
     <>
-    {imageLoaded ? (
-      <Card photo={photo}>
-        <Title>{title}</Title>
-      </Card>
-    ):(
-      <Skeleton width="90px" height="90px" />
-    )}
+      {imageLoaded ? (
+        <Card photo={photo}>
+          <Title>{title}</Title>
+        </Card>
+      ) : (
+        <Skeleton width="90px" height="90px" />
+      )}
     </>
-  )}
+  );
+};
 
 export default ImageCard;

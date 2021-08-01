@@ -29,4 +29,3 @@ export const Dialog = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 `;
-

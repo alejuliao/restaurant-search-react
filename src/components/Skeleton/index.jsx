@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const KeyFrameLoading = keyframes`
   0% {
@@ -19,4 +19,4 @@ const LoadingSkeleton = styled.div`
   animation: ${KeyFrameLoading} 500ms ease-in-out infinite;
 `;
 
-export default ({width, height}) => <LoadingSkeleton width={width} height={height}/>;
+export default ({ width, height }) => <LoadingSkeleton width={width} height={height} />;
