@@ -9,6 +9,7 @@
   },
   "rules": {
     "react/jsx-props-no-spreading": ["off"],
+    "react-hooks/exhaustive-deps": 0,
     "no-confusing-arrow": [
       "error",
       {

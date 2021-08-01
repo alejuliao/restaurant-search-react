@@ -81,6 +81,7 @@ const Home = () => {
         </Search>
         {restaurants.map((restaurant) => (
           <RestaurantCard
+            key={restaurant.place_id}
             onClick={() => handleOpenModal(restaurant.place_id)}
             restaurant={restaurant}
           />
