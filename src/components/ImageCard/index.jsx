@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Skeleton } from '../index';
 
-import { Card, Title } from './styled';
+import { Card, Title } from './styles';
 
 const ImageCard = ({ photo, title }) => {
   const [imageLoaded, setImageLoaded] = useState(false);

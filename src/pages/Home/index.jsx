@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 import TextField, { Input } from '@material/react-text-field';
+import ReactStars from 'react-rating-stars-component';
 
 import { useSelector } from 'react-redux';
 import MaterialIcon from '@material/react-material-icon';
@@ -63,7 +64,7 @@ const Home = () => {
           </TextField>
           {restaurants.length > 0 ? (
             <>
-              <CarouselTitle>Sua Área</CarouselTitle>
+              <CarouselTitle>Perto de você</CarouselTitle>
               <Carousel {...settings}>
                 {restaurants.map((restaurant) => (
                   <Card
@@ -91,12 +92,23 @@ const Home = () => {
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
         {restaurantSelected ? (
           <>
-            <ModalTitle>{restaurantSelected?.name}</ModalTitle>
-            <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
-            <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
-            <ModalContent>
-              {restaurantSelected?.opening_hours?.isOpen ? 'Aberto Agora' : 'Fechado Agora'}
-            </ModalContent>
+            <>
+              <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+              <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+              <ModalContent>Telefone: {restaurantSelected?.formatted_phone_number}</ModalContent>
+              <ModalContent>
+              Avaliação: <ReactStars count={5} isHalf value={restaurantSelected?.rating} edit={false} activeColor="orange" />
+              </ModalContent>
+
+
+              <ModalContent>
+                {restaurantSelected?.opening_hours?.isOpen ? 'Aberto Agora' : 'Fechado Agora'}
+              </ModalContent>
+              <ModalContent><a href={restaurantSelected?.url} target="_blank" rel="noopener noreferrer">Veja mais informações.</a></ModalContent>
+            </>
+
+            {/* <img src={restaurantSelected?.photos[0].getUrl()}/> */}
+
           </>
         ) : (
           <>
